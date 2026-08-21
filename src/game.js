@@ -1,12 +1,36 @@
 const COLS = 9;
 
-// Two digit/pairing rulesets. "classic" is a faithful match of the
-// reference "10000" game; "extended" is Matt's own variant (the point
-// of this game). Only the digit range and pairing target differ —
-// line-of-sight, scoring, row compaction, and Add all stay identical.
+// Four digit/pairing rulesets. "classic" is a faithful match of the
+// reference "10000" game (digits 1..base-1, pairing to base — the one
+// deliberate deviation from the pattern below, kept for fidelity to
+// the reference game). The other three all follow the same pattern:
+// digits 0..base-1 (the full, canonical digit set of that base),
+// pairing to base-1. "extended" is base 10 (Matt's original variant);
+// "octal" and "hex" apply the same pattern to bases 8 and 16. Only the
+// digit range and pairing target differ between modes — line-of-sight,
+// scoring, row compaction, and Add all stay identical. Hex digits 10-15
+// render as A-F (see digitLabel in main.js); the underlying values are
+// plain numbers throughout game.js, same as every other mode.
+//
+// octal's hardSumRange overrides the default HARD_TARGET_SUM_RANGE:
+// with only 8 possible digit values, driving the sum-opening count all
+// the way down to 0-2 (fine for 9-16 values) makes the search thrash —
+// measured at a median ~500ms per board, some over 800ms, clearly
+// unfit for a live deal. {2, 7} converges in low single-digit ms at
+// the median (max 16ms across 1000 boards, zero outliers) while still
+// landing well below the natural ~13-28 openings an unconstrained deal
+// produces, so hard mode still reads as deliberately sparse. A
+// narrower {3, 6} looked fine on small samples but had a real, rare
+// tail (2/300 boards over 500ms, one at 913ms) — narrowing the range
+// in an 8-value space costs more than it looks like it should, so this
+// was tuned empirically against larger samples, not assumed safe from
+// a quick check. hex has no such override: at 16 values it converges
+// as fast and reliably as classic/extended do.
 const MODES = {
   classic: { id: "classic", label: "Classic (1–9)", minDigit: 1, maxDigit: 9, pairSum: 10 },
   extended: { id: "extended", label: "Extended (0–9)", minDigit: 0, maxDigit: 9, pairSum: 9 },
+  octal: { id: "octal", label: "Octal (0–7)", minDigit: 0, maxDigit: 7, pairSum: 7, hardSumRange: { min: 2, max: 7 } },
+  hex: { id: "hex", label: "Hex (0–F)", minDigit: 0, maxDigit: 15, pairSum: 15 },
 };
 
 // A cell is one of three things: { value, gen } (occupied — gen is 0

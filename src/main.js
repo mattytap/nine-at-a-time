@@ -22,8 +22,15 @@ let difficulty = "easy";
 
 function dealBoard() {
   return difficulty === "hard"
-    ? createHardBoard(INITIAL_DIGITS, mode.minDigit, mode.maxDigit, mode.pairSum)
+    ? createHardBoard(INITIAL_DIGITS, mode.minDigit, mode.maxDigit, mode.pairSum, mode.hardSumRange)
     : createBoard(INITIAL_DIGITS, mode.minDigit, mode.maxDigit);
+}
+
+// Hex mode's digits go past 9 (up to 15) but still render as a single
+// character, matching hex notation: 10-15 as A-F. Every other mode's
+// values are all under 10, so this is a no-op for them.
+function digitLabel(value) {
+  return value < 10 ? String(value) : String.fromCharCode(55 + value);
 }
 
 let stage = 1;
@@ -50,7 +57,7 @@ function render() {
       if (!cell) {
         cellEl.disabled = true;
       } else {
-        cellEl.textContent = cell.value;
+        cellEl.textContent = digitLabel(cell.value);
         cellEl.disabled = gameOver;
         if (cell.gen % 2 === 1) cellEl.classList.add("cell-added");
         cellEl.addEventListener("click", () => handleCellClick(rowIndex, colIndex));
