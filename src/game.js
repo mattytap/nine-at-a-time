@@ -30,7 +30,7 @@ const MODES = {
   classic: { id: "classic", label: "Classic (1–9)", minDigit: 1, maxDigit: 9, pairSum: 10 },
   extended: { id: "extended", label: "Extended (0–9)", minDigit: 0, maxDigit: 9, pairSum: 9 },
   octal: { id: "octal", label: "Octal (0–7)", minDigit: 0, maxDigit: 7, pairSum: 7, hardSumRange: { min: 2, max: 7 } },
-  hex: { id: "hex", label: "Hex (0–F)", minDigit: 0, maxDigit: 15, pairSum: 15 },
+  hex: { id: "hex", label: "Hex (0–f)", minDigit: 0, maxDigit: 15, pairSum: 15 },
 };
 
 // A cell is one of three things: { value, gen } (occupied — gen is 0

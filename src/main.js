@@ -27,10 +27,11 @@ function dealBoard() {
 }
 
 // Hex mode's digits go past 9 (up to 15) but still render as a single
-// character, matching hex notation: 10-15 as A-F. Every other mode's
-// values are all under 10, so this is a no-op for them.
+// character, matching hex notation: 10-15 as a-f (lowercase, per
+// Matt's ask). Every other mode's values are all under 10, so this is
+// a no-op for them.
 function digitLabel(value) {
-  return value < 10 ? String(value) : String.fromCharCode(55 + value);
+  return value < 10 ? String(value) : String.fromCharCode(87 + value);
 }
 
 let stage = 1;
