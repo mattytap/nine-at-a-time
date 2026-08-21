@@ -1,0 +1,156 @@
+:root {
+  color-scheme: light dark;
+  --bg: #1b1c22;
+  --fg: #f2f2f2;
+  --cell-bg: #2a2c35;
+  --cell-empty: transparent;
+  --accent: #5aa9e6;
+  --selected: #f2b705;
+  --gen-yellow: #f5d90a;
+  --hint: #4caf50;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#app {
+  text-align: center;
+  padding: 1.5rem;
+  width: min(480px, 92vw);
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+  font-size: 1.75rem;
+  letter-spacing: 0.02em;
+}
+
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+#mode,
+#difficulty {
+  background: var(--cell-bg);
+  color: var(--fg);
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.hud button {
+  background: var(--accent);
+  color: #0e0f13;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.stage {
+  margin: 0 0 0.75rem;
+  color: #8a8f9c;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 4px;
+  background: #0e0f13;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.9rem, 3.5vw, 1.4rem);
+  font-weight: 700;
+  background: var(--cell-bg);
+  border-radius: 4px;
+  border: none;
+  color: var(--fg);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.cell:disabled {
+  background: var(--cell-empty);
+  cursor: default;
+}
+
+.cell.selected {
+  outline: 2px solid var(--selected);
+  outline-offset: -2px;
+}
+
+.cell.hint {
+  outline: 2px solid var(--hint);
+  outline-offset: -2px;
+}
+
+/* Cells from odd-numbered Add rounds render yellow; even rounds (the
+   original deal included) stay the default white, so each successive
+   Add alternates white/yellow against the previous one. */
+.cell.cell-added {
+  color: var(--gen-yellow);
+}
+
+.controls {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+#hint,
+#add {
+  background: var(--accent);
+  color: #0e0f13;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#add:disabled {
+  background: var(--cell-bg);
+  color: #777;
+  cursor: default;
+}
+
+.message {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--selected);
+}

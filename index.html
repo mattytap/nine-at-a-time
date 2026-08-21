@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Nine at a Time</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app">
+    <header>
+      <h1>Nine at a Time</h1>
+      <div class="hud">
+        <span id="score">Score: 0</span>
+        <span id="lives">Lives: 5</span>
+        <select id="mode">
+          <option value="classic">Classic (1–9)</option>
+          <option value="extended">Extended (0–9)</option>
+        </select>
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="hard">Hard</option>
+        </select>
+        <button id="restart" type="button">Restart</button>
+      </div>
+    </header>
+    <p id="stage" class="stage">Stage 1</p>
+    <div id="board" class="board"></div>
+    <div class="controls">
+      <button id="hint" type="button">Hint</button>
+      <button id="add" type="button">Add more numbers</button>
+    </div>
+    <p id="message" class="message" hidden></p>
+  </main>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
