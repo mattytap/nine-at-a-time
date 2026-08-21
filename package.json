@@ -1,0 +1,11 @@
+{
+  "name": "nine-at-a-time",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --minify --outfile=dist/bundle.min.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

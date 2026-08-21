@@ -28,17 +28,28 @@ Not yet implemented: persistent high score, any non-random ("cultured") distribu
 
 ## Running locally
 
-No build step yet — it's plain HTML/CSS/JS. Serve the directory with any static server, e.g.:
+`index.html` loads `dist/bundle.min.js`, a bundled and minified build of `src/main.js` + `src/game.js` (esbuild), not the source files directly. Serve the directory with any static server, e.g.:
 
 ```
 npx serve .
 ```
 
-or just open `index.html` directly in a browser.
+or just open `index.html` directly in a browser. `dist/bundle.min.js` is committed, so this works straight off a fresh clone with no build step required.
+
+## Building
+
+Source lives in `src/` (`game.js` fully commented and unit-testable, `main.js` for DOM wiring) and stays that way — only the shipped bundle is minified, never the source. After changing either file, regenerate the bundle and commit the result:
+
+```
+npm install
+npm run build
+```
+
+This runs `esbuild src/main.js --bundle --minify --outfile=dist/bundle.min.js`. There's no CI build step — GitHub Pages serves `dist/bundle.min.js` exactly as committed, so a stale, un-rebuilt bundle after a source change would silently ship the old behaviour.
 
 ## Deploying
 
-Intended to be served via GitHub Pages from the `main` branch root. Enable this under repo Settings → Pages once there's something worth publishing.
+Served via GitHub Pages from the `main` branch root.
 
 ## Roadmap
 
